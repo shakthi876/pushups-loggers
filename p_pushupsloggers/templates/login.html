@@ -1,0 +1,81 @@
+
+{% extends "base.html" %}
+
+{% block head %}
+
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='extended_beauty.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<center>
+<div class="col-md-4 col-md-offset-4 mt-3">
+  <form method="POST" action="">
+    <h2>Log In</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+  
+     {% for category,message in messages %}
+
+     {% if 'message' in category %}
+    
+     <div class="alert alert-warning alert-dismissible fade show" role="alert">
+       <strong>Message:</strong> {{ message }}
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     {% else %}
+     
+     <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+      <strong>Message:</strong> {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+
+     {% endfor %}
+
+     
+    
+   
+   {% endif %} {% endwith %}
+    <div class="form-group text-left">
+      <label for="email">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        aria-describedby="emailHelp"
+        placeholder="Enter email" required
+      />
+    </div>
+    <div class="form-group text-left">
+      <label for="password">Password</label>
+      <input
+        type="password"s
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="Password" required
+      />
+    </div>
+    <div class="form-check  text-left">
+      <input type="checkbox" class="form-check-input" id="remember" name="remember" />
+      <label class="form-check-label" for="remember">Remember Me</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+    <hr>
+    <div>
+      <a href="{{ url_for('auth.signup') }}" > Create-an-account</a>  &emsp;
+      <a href="" > Reset-Password</a>
+    </div>
+   
+  </form>
+</div>
+</center>
+{% endblock %}

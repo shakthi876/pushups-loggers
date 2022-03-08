@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='extended_beauty.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+
+<center>
+    <img src="{{ url_for('static',filename='images/cartoon.jpg') }}" alt="push up man" >
+</center>
+
+<center>
+<p>
+    Welcome to your <b>pushups loggers!</b> 
+</p>
+<p>
+    This websites noted down your push-up details with user authentication features using <b> Flask framework</b>
+</p>
+
+<p>
+    Registration for the Pushups Logger is free; just complete the simple online form and you're all set!
+</p>
+<p>
+    Once you've signed up and logged in, you can add/update/delete your daily push-ups details! 
+</p>
+
+
+</center>
+
+
+{% endblock %}
+

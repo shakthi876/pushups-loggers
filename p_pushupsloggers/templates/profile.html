@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='extended_beauty.css') }}">
+{% endblock %}
+{% block content %}
+<style>
+    .high:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    .blink_me {
+  animation: blinker 2s linear infinite;
+  color: red;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+</style>
+
+<center>
+
+    
+
+
+
+<br><br>
+
+
+
+
+
+
+
+
+<h3>Hey {{name}}, your Push-ups Report</h3>
+
+
+{% if result2 is not none %}
+
+<p>Total no of times did push-ups: <b class="high">{{result_count|sum}} times </b> </p>
+
+
+
+<p>Total no of push-ups taken so far: <b class="high">{{ result|sum }} push-ups </b> </p>
+<p>Highest push-ups taken in <b class="high"> {{result2.strftime('%d/%m/%Y')}} date </b> with <b class="high">{{max_day_count}} push-ups count  </b> </p>
+</center>
+
+{% else %}
+<br>
+<h3 class="blink_me">Plese add your push-ups status!!!</h3>
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,128 @@
+<script src="https://kit.fontawesome.com/b78b353888.js" crossorigin="anonymous"></script>
+
+
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename= 'extended_beauty.css') }}"
+/>
+{% endblock %} {% block content %}
+
+
+<style>
+ 
+  .blink_me {
+animation: blinker 2s linear infinite;color: red;
+}
+
+@keyframes blinker {
+50% {
+  opacity: 0;
+}
+}
+</style>
+  
+
+
+
+<center>
+  <br><br>
+  <div style="display: inline-block;">
+  <h3>Push-ups Details of {{ user.name }}! </h3> 
+  <a href="{{ url_for('main.workout') }}"  > Add-Pushups</a>
+
+</div>
+<div class="col-md-4 col-md-offset-4 mt-3">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+
+ {% for category,message in messages %}
+ <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+   <strong>Message:</strong> {{ message }}
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
+
+ {% endfor %}
+
+ 
+
+
+{% endif %} {% endwith %}
+</div>
+
+
+
+
+{% if workouts.items %}
+<div> 
+  
+  <table class="table table-hover" style="width: 700px;">
+   
+    <thead class="thead-dark">
+      <tr>
+         <th scope="col">#Id</th>
+        <th scope="col">Number of Push-Ups</th>
+        <th scope="col">Performed At</th>
+        <th scope="col">Comments</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for workout in workouts.items %}
+      <tr>
+         <td>{{ (page-1)*per_page + loop.index }}</td> 
+        <td>{{ workout.pushups }}</td>
+        <td>{{ workout.date_posted.strftime('%d/%m/%Y') }}</td>
+        <td>{{ workout.comment }}</td>
+        <td>
+          <a
+          href="{{ url_for('main.update_workout', workout_id=workout.id) }}"
+            class="btn btn-outline-primary"
+            role="button"
+          >
+          <i class="fa-solid fa-pen-to-square"></i>
+          </a>
+        </td>
+        <td>
+          <a
+            href="{{ url_for('main.delete_workout', workout_id=workout.id) }}"
+            class="btn btn-outline-danger"
+            role="button"
+          >
+          <i class="fa-solid fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% for page_num in workouts.iter_pages(left_edge=1,right_edge=2,left_current=1,right_current=1) %}
+  {% if page_num %}
+  {% if workouts.page== page_num %}
+  <a
+    href="{{ url_for('main.user_workouts', page=page_num) }}"
+    class="btn btn-info"
+    role="button"
+    > {{ page_num }}</a>
+    {% else %}
+    <a
+    href="{{ url_for('main.user_workouts', page=page_num) }}"
+    class="btn btn-outline-info"
+    role="button"
+    > {{ page_num }}</a>
+
+    {% endif %}
+    {% else %} ...
+    {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+<h3 class="blink_me">Please add the Push-up details</h3>
+
+{% endif %}
+</center>
+{% endblock %}
