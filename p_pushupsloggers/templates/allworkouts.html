@@ -53,16 +53,22 @@ animation: blinker 2s linear infinite;color: red;
 {% endif %} {% endwith %}
 </div>
 
+<style>
+  .tb{
+    width: 80% ;
+  }
 
+ 
+</style>
 
 
 {% if workouts.items %}
 <div> 
-  
-  <table class="table table-hover" style="width: 700px;">
+  <div class="table-responsive tb">
+  <table class="table table-hover tb" >
    
     <thead class="thead-dark">
-      <tr>
+      <tr style="text-align: center;">
          <th scope="col">#Id</th>
         <th scope="col">Number of Push-Ups</th>
         <th scope="col">Performed At</th>
@@ -73,7 +79,7 @@ animation: blinker 2s linear infinite;color: red;
     </thead>
     <tbody>
       {% for workout in workouts.items %}
-      <tr>
+      <tr style="text-align: center;">
          <td>{{ (page-1)*per_page + loop.index }}</td> 
         <td>{{ workout.pushups }}</td>
         <td>{{ workout.date_posted.strftime('%d/%m/%Y') }}</td>
@@ -100,6 +106,7 @@ animation: blinker 2s linear infinite;color: red;
       {% endfor %}
     </tbody>
   </table>
+  </div>
   {% for page_num in workouts.iter_pages(left_edge=1,right_edge=2,left_current=1,right_current=1) %}
   {% if page_num %}
   {% if workouts.page== page_num %}
